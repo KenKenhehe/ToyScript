@@ -19,6 +19,7 @@ public:
 private:
 	std::vector<Token> m_Tokens;
 	int m_CurrentIndex = 0;
-	Token m_CurrentToken = m_Tokens[0];
+	Token m_CurrentToken;
+	std::string errorInfo;
 };
 

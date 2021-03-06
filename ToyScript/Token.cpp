@@ -36,6 +36,10 @@ std::string Token::mapToken(TokenType id)
 	{
 		return "R_PAREN";
 	}
+	else if (id == TokenType::END_OF_FILE) 
+	{
+		return "EOF";
+	}
 	else {
 		return "NONE";
 	}

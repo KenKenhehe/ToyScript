@@ -151,17 +151,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Intepreter.cpp" />
     <ClCompile Include="Lexer.cpp" />
     <ClCompile Include="Node.cpp" />
     <ClCompile Include="Token.cpp" />
     <ClCompile Include="ToyParser.cpp" />
     <ClCompile Include="ToyScript.cpp" />
+    <ClCompile Include="Values.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Intepreter.h" />
     <ClInclude Include="Lexer.h" />
     <ClInclude Include="Node.h" />
     <ClInclude Include="Token.h" />
     <ClInclude Include="ToyParser.h" />
+    <ClInclude Include="Values.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

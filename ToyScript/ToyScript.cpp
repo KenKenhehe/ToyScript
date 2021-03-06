@@ -3,8 +3,10 @@
 
 #include <iostream>
 #include <string>
+#include <typeinfo>
 #include "Lexer.h"
 #include "ToyParser.h"
+#include "Intepreter.h"
 //#define LOG_TOKEN 0
 int main()
 {
@@ -21,8 +23,16 @@ int main()
 			std::vector<Token> tokens = lexer.GenerateTokens();
 			ToyParser parser(tokens);
 			Node* tree = parser.Parse();
+			Intepreter intpreter;
+			Value* value = intpreter.Visit(tree);
 
-			std::cout<<tree->ToString() << "\n";
+			//std::cout << tree->ToString() << "\n";
+
+			if (value != nullptr) 
+			{
+				std::cout << value->GetValue() << "\n";
+			}
+
 #ifdef LOG_TOKEN
 			for (auto i = tokens.begin(); i != tokens.end(); ++i)
 				std::cout << (*i).ToString() << ' ' << "\n";

@@ -13,7 +13,8 @@ public:
 		MUL,
 		DIV,
 		L_PAREN,
-		R_PAREN
+		R_PAREN,
+		END_OF_FILE
 	};
 
 	Token(TokenType tokenType, std::string tokenValue) :

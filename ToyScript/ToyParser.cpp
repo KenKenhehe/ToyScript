@@ -1,11 +1,14 @@
 #include "ToyParser.h"
 
-ToyParser::ToyParser(std::vector<Token> tokens) : m_Tokens(tokens)
+ToyParser::ToyParser(std::vector<Token> tokens) : m_Tokens(tokens), m_CurrentToken(Token(Token::TokenType::END_OF_FILE, ""))
 {
 	//Create space for token to avoid reallocating space, hence increase performance
 	m_Tokens.reserve(tokens.size());
 
-	m_CurrentToken = tokens[m_CurrentIndex];
+	if (tokens.size() > 0) 
+	{
+		m_CurrentToken = tokens[m_CurrentIndex];
+	}
 }
 
 void ToyParser::Advance()
@@ -15,22 +18,25 @@ void ToyParser::Advance()
 		m_CurrentIndex++;
 		m_CurrentToken = m_Tokens[m_CurrentIndex];
 	}
+	else 
+	{
+		m_CurrentToken = Token(Token::TokenType::END_OF_FILE, "EOF");
+	}
 	
 }
 
 Node* ToyParser::Parse()
 {
-	if (&m_CurrentToken == nullptr) 
+	if (m_CurrentToken.GetTokenType() == Token::TokenType::END_OF_FILE) 
 	{
 		return nullptr;
 	}
 
 	Node* result = Expr();
-
-	/*if (&m_CurrentToken != nullptr) 
+	if (m_CurrentToken.GetTokenType() != Token::TokenType::END_OF_FILE) 
 	{
-		throw "Syntax error";
-	}*/
+		throw std::string("SYNTAX ERROR: ") + m_CurrentToken.GetTokenValue();
+	}
 
 	return result;
 }
@@ -58,7 +64,6 @@ Node* ToyParser::Expr()
 			Node* right = Term();
 			result = new SubstractNode((Node*)result, right);
 		}
-		
 	}
 
 	std::string str = ((Node*)result)->ToString();
@@ -111,7 +116,7 @@ Node* ToyParser::Factor()
 	else if (m_CurrentToken.GetTokenType() == Token::TokenType::MINUS)
 	{
 		Advance();
-		Node* result = new MiniusNode(Factor());
+		Node* result = new MinusNode(Factor());
 		return result;
 	}
 	else if (m_CurrentToken.GetTokenType() == Token::TokenType::L_PAREN)
@@ -120,13 +125,17 @@ Node* ToyParser::Factor()
 		Node* expr = Expr();
 		if (m_CurrentToken.GetTokenType() != Token::TokenType::R_PAREN)
 		{
-			throw "Expected ')'";
+			errorInfo =  "Expected ')'";
 		}
-		Advance();
-		return expr;
+		else 
+		{
+			Advance();
+			return expr;
+		}
 	}
 
-	throw "Syntax Error";
+	std::string errStr =  "SYNTAX ERROR: " + errorInfo; 
+	throw errStr;
 }
 
 void ToyParser::Dispose(void* obj)
