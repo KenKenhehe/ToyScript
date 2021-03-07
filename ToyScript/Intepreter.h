@@ -13,6 +13,7 @@ public:
 	Value* VisitPlusNode(Node* node);
 	Value* VisitMinusNode(Node* node);
 	Value* VisitPowerNode(Node* node);
+	Value* VisitModulusNode(Node* node);
 private:
 	std::string errorInfo;
 

@@ -44,6 +44,10 @@ std::string Token::mapToken(TokenType id)
 	{
 		return "POWER";
 	}
+	else if (id == TokenType::MODULUS) 
+	{
+		return "MODULUS";
+	}
 	else {
 		return "NONE";
 	}

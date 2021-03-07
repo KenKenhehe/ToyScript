@@ -38,6 +38,10 @@ Value* Intepreter::Visit(Node* node)
 	{
 		return VisitDivideNode(node);
 	}
+	else if (strcmp(str, "class ModulusNode") == 0) 
+	{
+		return VisitModulusNode(node);
+	}
 	else if (strcmp(str, "class PowerNode") == 0) 
 	{
 		return VisitPowerNode(node);
@@ -95,6 +99,21 @@ Value* Intepreter::VisitDivideNode(Node* node)
 	}
 }
 
+Value* Intepreter::VisitModulusNode(Node* node)
+{
+	float leftValue = Visit(((ModulusNode*)node)->GetLeft())->GetValue();
+	float rightValue = Visit(((ModulusNode*)node)->GetRight())->GetValue();
+	if (rightValue == 0)
+	{
+		errorInfo = "can not divide by zero";
+	}
+	else
+	{
+		Value* result = new NumberValue((int)leftValue % (int)rightValue);
+		return result;
+	}
+}
+
 Value* Intepreter::VisitPlusNode(Node* node)
 {
 	float value = atof(((NumberNode*)node)->GetValue().c_str());
@@ -117,6 +136,9 @@ Value* Intepreter::VisitPowerNode(Node* node)
 	Value* num = new NumberValue(pow(leftValue, rightValue));
 	return num;
 }
+
+
+
 
 
 

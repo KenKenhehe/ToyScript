@@ -77,7 +77,8 @@ Node* ToyParser::Term()
 	while (
 		&m_CurrentToken != nullptr && 
 		(m_CurrentToken.GetTokenType() == Token::TokenType::MUL || 
-			m_CurrentToken.GetTokenType() == Token::TokenType::DIV)
+			m_CurrentToken.GetTokenType() == Token::TokenType::DIV ||
+			m_CurrentToken.GetTokenType() == Token::TokenType::MODULUS)
 		)
 	{
 		if (m_CurrentToken.GetTokenType() == Token::TokenType::MUL) 
@@ -91,6 +92,12 @@ Node* ToyParser::Term()
 			Advance();
 			Node* right = (Node*)Factor();
 			result = new DivideNode((Node*)result, right);
+		}
+		else if (m_CurrentToken.GetTokenType() == Token::TokenType::MODULUS) 
+		{
+			Advance();
+			Node* right = (Node*)Factor();
+			result = new ModulusNode((Node*)result, right);
 		}
 	}
 

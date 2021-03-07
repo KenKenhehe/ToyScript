@@ -15,6 +15,7 @@ public:
 		L_PAREN,
 		R_PAREN,
 		POWER,
+		MODULUS,
 		END_OF_FILE
 	};
 
