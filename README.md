@@ -23,12 +23,12 @@ Divide:
 
 Changing of order of operation:
 > 1 + 2 * 2 -> 5
-And
+
 >(1 + 2) * 2 -> 6
 
 Unary operation:
 > -2 - 1 -> -3
-And
+
 > +3 + 1 -> 4
 
 Power:
