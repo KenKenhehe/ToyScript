@@ -156,7 +156,7 @@ Node* ToyParser::Atom()
 	{
 		Advance();
 		Node* expr = Expr();
-		if (currentToken.GetTokenType() != Token::TokenType::R_PAREN)
+		if (m_CurrentToken.GetTokenType() != Token::TokenType::R_PAREN)
 		{
 			errorInfo = "Expected ')'";
 		}

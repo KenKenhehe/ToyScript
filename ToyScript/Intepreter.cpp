@@ -116,7 +116,7 @@ Value* Intepreter::VisitModulusNode(Node* node)
 
 Value* Intepreter::VisitPlusNode(Node* node)
 {
-	float value = atof(((NumberNode*)node)->GetValue().c_str());
+	float value = Visit(((PlusNode*)node)->GetNode())->GetValue();
 	Value* num = new NumberValue(value);
 	return num;
 }
