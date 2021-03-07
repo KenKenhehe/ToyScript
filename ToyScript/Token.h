@@ -14,6 +14,7 @@ public:
 		DIV,
 		L_PAREN,
 		R_PAREN,
+		POWER,
 		END_OF_FILE
 	};
 

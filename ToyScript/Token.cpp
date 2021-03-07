@@ -40,6 +40,10 @@ std::string Token::mapToken(TokenType id)
 	{
 		return "EOF";
 	}
+	else if (id == TokenType::POWER) 
+	{
+		return "POWER";
+	}
 	else {
 		return "NONE";
 	}

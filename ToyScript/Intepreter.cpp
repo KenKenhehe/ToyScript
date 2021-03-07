@@ -1,6 +1,7 @@
 
 #include "Intepreter.h"
 #include <typeinfo>
+#include <cmath>
 
 Value* Intepreter::Visit(Node* node)
 {
@@ -12,6 +13,14 @@ Value* Intepreter::Visit(Node* node)
 	if (strcmp(str, "class NumberNode") == 0)
 	{
 		return VisitNumberNode(node);
+	}
+	else if (strcmp(str, "class PlusNode") == 0)
+	{
+		return VisitPlusNode(node);
+	}
+	else if (strcmp(str, "class MinusNode") == 0)
+	{
+		return VisitMinusNode(node);
 	}
 	else if (strcmp(str, "class AddNode") == 0)
 	{
@@ -29,13 +38,9 @@ Value* Intepreter::Visit(Node* node)
 	{
 		return VisitDivideNode(node);
 	}
-	else if (strcmp(str, "class PlusNode") == 0)
+	else if (strcmp(str, "class PowerNode") == 0) 
 	{
-		return VisitPlusNode(node);
-	}
-	else if (strcmp(str, "class MinusNode") == 0)
-	{
-		return VisitMinusNode(node);
+		return VisitPowerNode(node);
 	}
 	std::string errStr = "MATH ERROR: " + errorInfo;
 	throw errStr;
@@ -59,8 +64,8 @@ Value* Intepreter::VisitAddNode(Node* node)
 
 Value* Intepreter::VisitSubtractNode(Node* node)
 {
-	float leftValue = Visit(((AddNode*)node)->GetLeft())->GetValue();
-	float rightValue = Visit(((AddNode*)node)->GetRight())->GetValue();
+	float leftValue = Visit(((SubtractNode*)node)->GetLeft())->GetValue();
+	float rightValue = Visit(((SubtractNode*)node)->GetRight())->GetValue();
 
 	Value* result = new NumberValue(leftValue - rightValue);
 	return result;
@@ -68,8 +73,8 @@ Value* Intepreter::VisitSubtractNode(Node* node)
 
 Value* Intepreter::VisitMultiplyNode(Node* node)
 {
-	float leftValue = Visit(((AddNode*)node)->GetLeft())->GetValue();
-	float rightValue = Visit(((AddNode*)node)->GetRight())->GetValue();
+	float leftValue = Visit(((MultiplyNode*)node)->GetLeft())->GetValue();
+	float rightValue = Visit(((MultiplyNode*)node)->GetRight())->GetValue();
 
 	Value* result = new NumberValue(leftValue * rightValue);
 	return result;
@@ -77,8 +82,8 @@ Value* Intepreter::VisitMultiplyNode(Node* node)
 
 Value* Intepreter::VisitDivideNode(Node* node)
 {
-	float leftValue = Visit(((AddNode*)node)->GetLeft())->GetValue();
-	float rightValue = Visit(((AddNode*)node)->GetRight())->GetValue();
+	float leftValue = Visit(((DivideNode*)node)->GetLeft())->GetValue();
+	float rightValue = Visit(((DivideNode*)node)->GetRight())->GetValue();
 	if (rightValue == 0)
 	{
 		errorInfo = "can not divide by zero";
@@ -103,5 +108,16 @@ Value* Intepreter::VisitMinusNode(Node* node)
 	Value* num = new NumberValue(-value);
 	return num;
 }
+
+Value* Intepreter::VisitPowerNode(Node* node)
+{
+	float leftValue = Visit(((PowerNode*)node)->GetLeft())->GetValue();
+	float rightValue = Visit(((PowerNode*)node)->GetRight())->GetValue();
+
+	Value* num = new NumberValue(pow(leftValue, rightValue));
+	return num;
+}
+
+
 
 

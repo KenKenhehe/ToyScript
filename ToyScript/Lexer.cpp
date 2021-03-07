@@ -63,6 +63,11 @@ std::vector<Token> Lexer::GenerateTokens()
 			tokens.emplace_back(Token::TokenType::R_PAREN, ")");
 			Advance();
 		}
+		else if (std::string("^").find(current_char) != std::string::npos) 
+		{
+			tokens.emplace_back(Token::TokenType::POWER, "^");
+			Advance();
+		}
 		else 
 		{
 			std::string errStr = "Invalid character: '";

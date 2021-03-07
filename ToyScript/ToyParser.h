@@ -11,9 +11,13 @@ public:
 	void Advance();
 	Node* Parse();
 
+
+
 	Node* Expr();
 	Node* Term();
 	Node* Factor();
+	Node* Atom();
+	Node* Power();
 
 	void Dispose(void* obj);
 private:

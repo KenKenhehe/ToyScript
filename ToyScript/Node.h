@@ -36,11 +36,14 @@ private:
 	Node* m_Right;
 };
 
-class SubstractNode : public Node
+class SubtractNode : public Node
 {
 public:
-	SubstractNode(Node* left, Node* right) :
+	SubtractNode(Node* left, Node* right) :
 		m_Left(left), m_Right(right) {}
+
+	Node* GetLeft() { return m_Left; }
+	Node* GetRight() { return m_Right; }
 
 	std::string ToString() override { return "(" + m_Left->ToString() + " - " + m_Right->ToString() + ")"; }
 	const char* ToCstr() override { return ("(" + m_Left->ToString() + " - " + m_Right->ToString() + ")").c_str(); }
@@ -55,6 +58,9 @@ public:
 	MultiplyNode(Node* left, Node* right) :
 		m_Left(left), m_Right(right) {}
 
+	Node* GetLeft() { return m_Left; }
+	Node* GetRight() { return m_Right; }
+
 	std::string ToString() override { return "(" + m_Left->ToString() + " * " + m_Right->ToString() + ")"; }
 	const char* ToCstr() override { return ("(" + m_Left->ToString() + " * " + m_Right->ToString() + ")").c_str(); }
 
@@ -68,6 +74,9 @@ class DivideNode : public Node
 public:
 	DivideNode(Node* left, Node* right) :
 		m_Left(left), m_Right(right) {}
+
+	Node* GetLeft() { return m_Left; }
+	Node* GetRight() { return m_Right; }
 
 	std::string ToString() override { return "(" + m_Left->ToString() + " / " + m_Right->ToString() + ")"; }
 	const char* ToCstr() override { return ("(" + m_Left->ToString() + " / " + m_Right->ToString() + ")").c_str(); }
@@ -100,5 +109,22 @@ public:
 	Node* GetNode() { return m_Node; }
 private:								
 	Node* m_Node;
+};
+
+class PowerNode : public Node 
+{
+public:
+	PowerNode(Node* left, Node* right) :
+		m_Left(left), m_Right(right) {}
+
+	Node* GetLeft() { return m_Left; }
+	Node* GetRight() { return m_Right; }
+
+	std::string ToString() override { return "(" + m_Left->ToString() + " ^ " + m_Right->ToString() + ")"; }
+	const char* ToCstr() override { return ("(" + m_Left->ToString() + " ^ " + m_Right->ToString() + ")").c_str(); }
+
+private:
+	Node* m_Left;
+	Node* m_Right;
 };
 

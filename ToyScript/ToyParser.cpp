@@ -62,7 +62,7 @@ Node* ToyParser::Expr()
 		{
 			Advance();
 			Node* right = Term();
-			result = new SubstractNode((Node*)result, right);
+			result = new SubtractNode((Node*)result, right);
 		}
 	}
 
@@ -100,43 +100,71 @@ Node* ToyParser::Term()
 Node* ToyParser::Factor()
 {
 	Token currentToken = m_CurrentToken;
-	if (m_CurrentToken.GetTokenType() == Token::TokenType::NUMBER) 
+	if (currentToken.GetTokenType() == Token::TokenType::PLUS)
 	{
 		Advance();
-		Node* result = new NumberNode(currentToken.GetTokenValue());
-		return result;
-	}
-	else if (m_CurrentToken.GetTokenType() == Token::TokenType::PLUS) 
-	{
-		Advance();
-		Node* result = new PlusNode(Factor());
+		Node* result = new PlusNode(Power());
 		return result;
 	}
 
 	else if (m_CurrentToken.GetTokenType() == Token::TokenType::MINUS)
 	{
 		Advance();
-		Node* result = new MinusNode(Factor());
+		Node* result = new MinusNode(Power());
 		return result;
 	}
-	else if (m_CurrentToken.GetTokenType() == Token::TokenType::L_PAREN)
+	else
+	{
+		Node* result = Power();
+		return result;
+	}
+	std::string errStr =  "SYNTAX ERROR: " + errorInfo; 
+	throw errStr;
+}
+
+Node* ToyParser::Power()
+{
+	Node* result = Atom();
+	while(&m_CurrentToken != nullptr && 
+		m_CurrentToken.GetTokenType() == Token::TokenType::POWER)
+	{
+		Advance();
+		Node* right = Factor();
+		result = new PowerNode(result, right);
+	}
+	return result;
+}
+
+Node* ToyParser::Atom()
+{
+	Token currentToken = m_CurrentToken;
+
+	if (currentToken.GetTokenType() == Token::TokenType::NUMBER)
+	{
+		Advance();
+		Node* result = new NumberNode(currentToken.GetTokenValue());
+		return result;
+	}
+	else if (currentToken.GetTokenType() == Token::TokenType::L_PAREN)
 	{
 		Advance();
 		Node* expr = Expr();
-		if (m_CurrentToken.GetTokenType() != Token::TokenType::R_PAREN)
+		if (currentToken.GetTokenType() != Token::TokenType::R_PAREN)
 		{
-			errorInfo =  "Expected ')'";
+			errorInfo = "Expected ')'";
 		}
-		else 
+		else
 		{
 			Advance();
 			return expr;
 		}
 	}
 
-	std::string errStr =  "SYNTAX ERROR: " + errorInfo; 
+	std::string errStr = "SYNTAX ERROR: " + errorInfo;
 	throw errStr;
 }
+
+
 
 void ToyParser::Dispose(void* obj)
 {

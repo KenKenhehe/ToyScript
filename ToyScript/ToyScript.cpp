@@ -26,7 +26,7 @@ int main()
 			Intepreter intpreter;
 			Value* value = intpreter.Visit(tree);
 
-			//std::cout << tree->ToString() << "\n";
+			std::cout << tree->ToString() << "\n";
 
 			if (value != nullptr) 
 			{
