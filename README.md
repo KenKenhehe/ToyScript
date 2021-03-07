@@ -21,7 +21,7 @@ Divide:
 4 / 2
 > 2
 
-Changing of order of operation
+Changing of order of operation:
 1 + 2 * 2
 > 5
 (1 + 2) * 2
