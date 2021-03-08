@@ -4,6 +4,8 @@ This is a simple math intepreter I build in C++, inspired by this video series: 
 To run the program from file, first clone and build the visual studio project, 
 in terminal run: 
 >ToyScript.exe [filepath]
+For example:
+>ToyScript.exe C:/project/test.txt
 
 Currently it supports:
 
