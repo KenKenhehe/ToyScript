@@ -3,10 +3,10 @@
 #include "Lexer.h"
 
 
-class ToyParser
+class Parser
 {
 public:
-	ToyParser(std::vector<Token> tokens);
+	Parser(std::vector<Token> tokens);
 
 	void Advance();
 	Node* Parse();
