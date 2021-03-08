@@ -16,6 +16,8 @@ public:
 		R_PAREN,
 		POWER,
 		MODULUS,
+		EQU,
+		NEW_LINE,
 		END_OF_FILE
 	};
 

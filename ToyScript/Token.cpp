@@ -48,7 +48,16 @@ std::string Token::mapToken(TokenType id)
 	{
 		return "MODULUS";
 	}
-	else {
+	else if (id == TokenType::EQU)
+	{
+		return "EQU";
+	}
+	else if (id == TokenType::NEW_LINE) 
+	{
+		return "NEW_LINE";
+	}
+	else 
+	{
 		return "NONE";
 	}
 }

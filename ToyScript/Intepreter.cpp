@@ -91,6 +91,7 @@ Value* Intepreter::VisitDivideNode(Node* node)
 	if (rightValue == 0)
 	{
 		errorInfo = "can not divide by zero";
+		throw std::string("Math error: ") + errorInfo;
 	}
 	else
 	{

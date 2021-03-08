@@ -42,7 +42,6 @@ Node* ToyParser::Parse()
 }
 
 
-
 Node* ToyParser::Expr()
 {
 	Node* result = (Node*)Term();

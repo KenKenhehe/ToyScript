@@ -23,7 +23,8 @@ private:
 	int m_CurrentIndex = 0;
 
 	//Constant variables
-	const std::string m_WhiteSpace = " \n\t";
+	const std::string m_WhiteSpace = " \t";
+	//const std::string m_NewLine = "\n";
 	const std::string m_Digit = "0123456789";
 
 

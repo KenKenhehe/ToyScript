@@ -18,7 +18,7 @@ std::vector<Token> Lexer::GenerateTokens()
 
 	/*Avoiding addition copying by reserving the vector with the text count, 
 	The number of token is definately lower than the number of text input, 
-	a few extra space int the memery is fine since it's mostly text file*/
+	a few extra space in the memory is fine since it's mostly text file*/
 	tokens.reserve(strlen(m_Text.c_str()));
 
 	while (m_CurrentIndex < strlen(m_Text.c_str())) {
@@ -26,10 +26,14 @@ std::vector<Token> Lexer::GenerateTokens()
 		{
 			Advance();
 		}
+		else if (std::string("\n").find(current_char) != std::string::npos)
+		{
+			tokens.emplace_back(Token::TokenType::NEW_LINE, "+");
+			Advance();
+		}
 		else if (std::string(m_Digit).find(current_char) != std::string::npos ||
 				std::string(".").find(current_char) != std::string::npos)
 		{
-			//TODO: Generate number token
 			Token token = GenerateNumber();
 			tokens.emplace_back(token);
 		}
